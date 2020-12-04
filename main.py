@@ -1,5 +1,7 @@
+import os # for running on pythonanywhere w/free twilio account
 import requests
 from twilio.rest import Client
+from twilio.http.http_client import TwilioHttpClient # for running on pythonanywhere w/free twilio account
 
 # CONSTS LAT & LNG set for New Orleans
 # Weather Open Map
@@ -41,7 +43,16 @@ def precipitation():
 
 # prints based on condition
 if precipitation():
+    proxy_client = TwilioHttpClient() # for running on pythonanywhere w/free twilio account
+    proxy_client.session.proxies = {'https': os.environ['https_proxy']} # for running on pythonanywhere w/free twilio account
     client = Client(SID, AUTH_TOKEN)
     message = client.messages \
         .create(body="It's gonna rain!🌧", from_=PHONE, to="_YOUR_VERIFIED_RECIPIENT_")
+    print(message.status)
+else:
+    proxy_client = TwilioHttpClient() # for running on pythonanywhere w/free twilio account
+    proxy_client.session.proxies = {'https': os.environ['https_proxy']} # for running on pythonanywhere w/free twilio account
+    client = Client(SID, AUTH_TOKEN, http_client=proxy_client)
+    message = client.messages \
+        .create(body="Clear skies!", from_=PHONE, to="+15042648349")
     print(message.status)
