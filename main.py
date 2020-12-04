@@ -4,12 +4,12 @@ from twilio.rest import Client
 from twilio.http.http_client import TwilioHttpClient # for running on pythonanywhere w/free twilio account
 
 # CONSTS LAT & LNG set for New Orleans
-# Weather Open Map
+# OPEN_WEATHER
 END_POINT = "https://api.openweathermap.org/data/2.5/onecall"
 LAT = 29.951065  # Change to your latitude
 LNG = -90.071533  # Change to your longitude
 EXCLUDE = "current,minutely,daily"
-API_KEY = "_YOUR_WEATHER_OPEN_MAP_API_HERE_"  # your input here
+API_KEY = "_YOUR_OPEN_WEATHER_MAP_API_HERE_"  # your input here
 # Twilio
 SID = "_YOUR_TWILIO_SID_GOES_HERE_"  # your input here
 AUTH_TOKEN = "_YOUR_TWILIO_AUTH_TOKEN_GOES_HERE_"  # your input here
@@ -24,7 +24,7 @@ location = {
     "units": "standard",  # can change
 }
 
-# API call
+# API OPEN_WEATHER
 response = requests.get(
     url=f"{END_POINT}", params=location)
 response.raise_for_status()
